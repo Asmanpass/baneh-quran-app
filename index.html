@@ -550,45 +550,58 @@
         const kurdishOrdinals = ['یەکەم', 'دووهەم', 'سێیەم', 'چوارەم', 'پێنجەم', 'شەشەم', 'حەوتەم', 'هەشتەم', 'نۆیەم', 'دەیەم', 'یانزەیەم', 'دوانزەیەم', 'سیانزەیەم', 'چواردەیەم', 'پازدەیەم', 'شازدەیەم', 'حەڤدەیەم', 'هەژدەیەم', 'نۆزدەیەم', 'بیستەم', 'بیست و یەکەم', 'بیست و دووهەم', 'بیست و سێیەم', 'بیست و چوارەم', 'بیست و پێنجەم', 'بیست و شەشەم', 'بیست و حەوتەم', 'بیست و هەشتەم', 'بیست و نۆیەم', 'سییەم'];
         const persianOrdinals = ['اول', 'دوم', 'سوم', 'چهارم', 'پنجم', 'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم', 'یازدهم', 'دوازدهم', 'سیزدهم', 'چهاردهم', 'پانزدهم', 'شانزدهم', 'هفدهم', 'هجدهم', 'نوزدهم', 'بیستم', 'بیست و یکم', 'بیست و دوم', 'بیست و سوم', 'بیست و چهارم', 'بیست و پنجم', 'بیست و ششم', 'بیست و هفتم', 'بیست و هشتم', 'بیست و نهم', 'سی‌ام'];
 
-        let currentLang = 'ku';
-        let targetDateTimer = 0;
+let currentLang = 'ku';
+        let currentWedTimings = null;
         let eventData = {};
         let timerInterval = null;
+        let rawGoogleData = null;
 
-        function calculateNextWednesdayInfo() {
+        // ۱. محاسبه دقیق زمان‌های چهارشنبه (اذان عشا + ۱۵ دقیقه، + ۹۰ دقیقه، + ۱۲۰ دقیقه)
+        function getWednesdaySchedule() {
             let now = new Date();
             let target = new Date();
             let daysUntilWed = (3 - now.getDay() + 7) % 7; 
             target.setDate(now.getDate() + daysUntilWed);
 
-            const formatter = new Intl.DateTimeFormat('fa-IR-u-nu-latn', {timeZone: 'Asia/Tehran', year:'numeric', month: 'numeric', day: 'numeric'});
-            let parts = formatter.formatToParts(target);
-            let y = parts.find(p=>p.type==='year').value;
-            let m = parts.find(p=>p.type==='month').value;
-            let d = parts.find(p=>p.type==='day').value;
+            function computeTimesForDate(dateObj) {
+                const formatter = new Intl.DateTimeFormat('fa-IR-u-nu-latn', {timeZone: 'Asia/Tehran', year:'numeric', month: 'numeric', day: 'numeric'});
+                let parts = formatter.formatToParts(dateObj);
+                let y = parts.find(p=>p.type==='year').value;
+                let m = parts.find(p=>p.type==='month').value;
+                let d = parts.find(p=>p.type==='day').value;
 
-            let isha = (yearTimes[m] && yearTimes[m][d]) ? yearTimes[m][d][5] : "19:30"; 
-            let [h, min] = isha.split(':');
-            let ishaHour24 = parseInt(h, 10);
-            if (ishaHour24 < 12) ishaHour24 += 12;
-            target.setHours(ishaHour24 + 2, parseInt(min, 10), 0, 0);
+                let isha = (yearTimes[m] && yearTimes[m][d]) ? yearTimes[m][d][5] : "19:30"; 
+                let [h, min] = isha.split(':');
+                let ishaHour24 = parseInt(h, 10);
+                if (ishaHour24 < 12) ishaHour24 += 12;
 
-            if (now.getTime() > target.getTime()) {
-                target.setDate(target.getDate() + 7);
-                parts = formatter.formatToParts(target);
-                y = parts.find(p=>p.type==='year').value;
-                m = parts.find(p=>p.type==='month').value;
-                d = parts.find(p=>p.type==='day').value;
-                isha = (yearTimes[m] && yearTimes[m][d]) ? yearTimes[m][d][5] : "19:30";
-                let [nh, nmin] = isha.split(':');
-                let nIshaHour24 = parseInt(nh, 10);
-                if (nIshaHour24 < 12) nIshaHour24 += 12;
-                target.setHours(nIshaHour24 + 2, parseInt(nmin, 10), 0, 0);
+                let ishaDate = new Date(dateObj);
+                ishaDate.setHours(ishaHour24, parseInt(min, 10), 0, 0);
+                let ishaMs = ishaDate.getTime();
+
+                return {
+                    dateObj: dateObj,
+                    year: y,
+                    month: m,
+                    day: d,
+                    startTime: ishaMs + (15 * 60 * 1000), // ۱۵ دقیقه بعد از اذان عشا (صفر شدن تایمر و شروع مراسم)
+                    endTime: ishaMs + (90 * 60 * 1000),   // ۱ ساعت و ۳۰ دقیقه بعد از اذان عشا (پایان مراسم)
+                    resetTime: ishaMs + (120 * 60 * 1000) // ۲ ساعت بعد از اذان عشا (ریست شدن برای چهارشنبه بعد)
+                };
             }
 
-            return { targetObj: target, year: y, month: m, day: d };
+            let sched = computeTimesForDate(target);
+
+            // اگر ۲ ساعت از اذان عشای چهارشنبه گذشته است، برو به چهارشنبه هفته بعد
+            if (now.getTime() >= sched.resetTime) {
+                target.setDate(target.getDate() + 7);
+                sched = computeTimesForDate(target);
+            }
+
+            return sched;
         }
 
+        // ۲. محاسبه صفحات بر اساس جزء
         function getPagesText(juz, index, lang) {
             if (juz === 1) {
                 if (index === 0) return toPersianNum(lang === 'ku' ? "لاپەڕەی ۱ تا ۳" : "صفحه ۱ تا ۳");
@@ -604,21 +617,29 @@
             }
         }
 
+        // ۳. اعمال اطلاعات روی صفحه
         function applyDataToUI(data) {
+            rawGoogleData = data;
             let startD = new Date(data.startDate);
-            let now = new Date();
-            let diffWeeks = Math.floor(Math.abs(now - startD) / (1000 * 60 * 60 * 24 * 7));
-            let calculatedJuz = (diffWeeks % 30) + 1;
-            let finalJuz = data.manualJuz ? data.manualJuz : calculatedJuz;
+            if (isNaN(startD.getTime())) {
+                startD = new Date("2026-10-07T00:00:00");
+            }
 
-            let wedInfo = calculateNextWednesdayInfo();
-            targetDateTimer = wedInfo.targetObj.getTime();
+            currentWedTimings = getWednesdaySchedule();
+
+            // محاسبه شماره جزء بر اساس چهارشنبه هدف
+            let diffWeeks = Math.round((currentWedTimings.dateObj - startD) / (1000 * 60 * 60 * 24 * 7));
+            if (diffWeeks < 0) diffWeeks = 0;
+            let calculatedJuz = (diffWeeks % 30) + 1;
+            
+            let manualJuzNum = parseInt(data.manualJuz, 10);
+            let finalJuz = (!isNaN(manualJuzNum) && manualJuzNum >= 1 && manualJuzNum <= 30) ? manualJuzNum : calculatedJuz;
 
             eventData = {
-                mosque: data.mosque,
+                mosque: data.mosque || "مزگەوتی دیاریکراو",
                 juzNum: finalJuz,
-                dateKu: toPersianNum(`📅 چوارشەممە ${wedInfo.day}ی ${kurdishMonths[wedInfo.month]} ${wedInfo.year}`),
-                dateFa: toPersianNum(`📅 چهارشنبه ${wedInfo.day} ${persianMonths[wedInfo.month]} ${wedInfo.year}`),
+                dateKu: toPersianNum(`📅 چوارشەممە ${currentWedTimings.day}ی ${kurdishMonths[currentWedTimings.month]} ${currentWedTimings.year}`),
+                dateFa: toPersianNum(`📅 چهارشنبه ${currentWedTimings.day} ${persianMonths[currentWedTimings.month]} ${currentWedTimings.year}`),
                 reciters: data.reciters
             };
 
@@ -632,15 +653,11 @@
         }
 
         async function fetchGoogleData() {
-            // ۱. بارگذاری فوری از حافظه کش گوشی (صفر ثانیه تاخیر)
             const cachedData = localStorage.getItem('quran_baneh_cache');
             if (cachedData) {
-                try {
-                    applyDataToUI(JSON.parse(cachedData));
-                } catch (e) {}
+                try { applyDataToUI(JSON.parse(cachedData)); } catch (e) {}
             }
 
-            // ۲. دریافت آخرین تغییرات از گوگل شیت در پس‌زمینه
             try {
                 let response = await fetch(GOOGLE_API_URL);
                 let freshData = await response.json();
@@ -704,19 +721,44 @@
 
         function toggleLanguage() { currentLang = currentLang === 'ku' ? 'fa' : 'ku'; updatePageLanguage(); }
 
+        // ۴. مدیریت هوشمند ۳ مرحله‌ای تایمر
         function updateTimer() {
-            if (targetDateTimer === 0) return;
-            const distance = targetDateTimer - new Date().getTime();
+            if (!currentWedTimings) return;
+            const nowMs = new Date().getTime();
             const timerTitle = document.getElementById("t-timer-title");
-            
-            if (distance < 0) {
-                timerTitle.innerText = currentLang === 'ku' ? "🎉 کۆڕەکە دەستی پێکرد!" : "🎉 مراسم آغاز شد!";
-                document.querySelector(".timer-container").style.display = "none";
+            const timerContainer = document.querySelector(".timer-container");
+
+            // مرحله سوم: گذشتن ۲ ساعت از اذان عشا -> ریست کل برنامه به چهارشنبه بعدی و جزء +۱
+            if (nowMs >= currentWedTimings.resetTime) {
+                if (rawGoogleData) {
+                    applyDataToUI(rawGoogleData);
+                }
                 return;
-            } else {
-                timerTitle.innerText = currentLang === 'ku' ? "⏳ کاتی ماوە بۆ دەستپێکی کۆڕ" : "⏳ زمان باقی‌مانده تا شروع مراسم";
-                document.querySelector(".timer-container").style.display = "flex";
             }
+
+            // مرحله دوم: بین ۱ ساعت و ۳۰ دقیقه تا ۲ ساعت بعد از اذان عشا -> پیام پایان مراسم
+            if (nowMs >= currentWedTimings.endTime) {
+                timerTitle.innerText = currentLang === 'ku' 
+                    ? "کۆڕی خەتمی قوڕئانی پیرۆز کۆتایی پێ هات." 
+                    : "مراسم ختم قرآن کریم به پایان رسید.";
+                timerContainer.style.display = "none";
+                return;
+            }
+
+            // مرحله اول: بین ۱۵ دقیقه تا ۱ ساعت و ۳۰ دقیقه بعد از اذان عشا -> پیام شروع مراسم
+            if (nowMs >= currentWedTimings.startTime) {
+                timerTitle.innerText = currentLang === 'ku' 
+                    ? "کۆڕی خەتمی قوڕئانی پیرۆز دەستی پێ کرد." 
+                    : "مراسم ختم قرآن کریم آغاز شد.";
+                timerContainer.style.display = "none";
+                return;
+            }
+
+            // قبل از ۱۵ دقیقه بعد از اذان عشا -> شمارش معکوس تا (اذان عشا + ۱۵ دقیقه)
+            timerTitle.innerText = currentLang === 'ku' ? "⏳ کاتی ماوە بۆ دەستپێکی کۆڕ" : "⏳ زمان باقی‌مانده تا شروع مراسم";
+            timerContainer.style.display = "flex";
+
+            const distance = currentWedTimings.startTime - nowMs;
             document.getElementById("days").innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
             document.getElementById("hours").innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
             document.getElementById("minutes").innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
