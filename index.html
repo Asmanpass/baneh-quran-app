@@ -82,7 +82,7 @@
         }
 
         /* دیاریکردنی جۆزی ئەم هەفتەیە */
-                .juz-badge {
+        .juz-badge {
             background: linear-gradient(135deg, #134e4a 0%, #065f46 100%);
             border: 1px solid #34d399;
             color: #ecfdf5;
@@ -99,7 +99,6 @@
             justify-content: center;
             gap: 8px;
         }
-
 
         /* شوێن و مزگەوتی میوانداری ئەم هەفتەیە */
         .location-box {
@@ -270,153 +269,111 @@
 
     <!-- سەرپەڕی کۆڕ و کات -->
     <div class="header-card">
-        <div class="event-title" id="t-event-title">✨ خەتمی هەفتانەی قوڕئانی پیرۆز ✨</div>
+        <div class="event-title" id="t-event-title"></div>
         <div class="event-meta">
-            <span class="event-date" id="t-event-date">📅 چوارشەممە ١٥ی ڕەزبەر ۱۴۰۵</span>
-            <span class="event-time" id="t-event-time">⏰ کات: دوای نوێژی عیشا</span>
+            <span class="event-date" id="t-event-date"></span>
+            <span class="event-time" id="t-event-time"></span>
         </div>
     </div>
 
     <!-- دیاریکردنی جوزئی ئەم هەفتەیە -->
-    <div class="juz-badge" id="t-juz-badge">
-        📖 تیلاوەتی ئەم هەفتەیە: <b>جوزئی یەکەم (۱)</b>
-    </div>
+    <div class="juz-badge" id="t-juz-badge"></div>
 
     <!-- شوێن و مزگەوتی میوانداری ئەم هەفتەیە -->
     <div class="location-box">
         <div class="location-icon">🕌</div>
         <div class="location-info">
-            <span class="location-title" id="t-loc-title">مزگەوتی میوانداری ئەم هەفتەیە:</span>
-            <span class="location-name" id="t-loc-name">مزگەوتی حەزرەتی حسین(رض)</span>
+            <span class="location-title" id="t-loc-title"></span>
+            <span class="location-name" id="t-loc-name"></span>
         </div>
     </div>
 
-    <div class="timer-title" id="t-timer-title">⏳ کاتی ماوە بۆ دەستپێکی کۆڕ</div>
+    <div class="timer-title" id="t-timer-title"></div>
     
     <!-- تایمر -->
     <div class="timer-container">
         <div class="time-box">
             <div id="days" class="time-number">00</div>
-            <div class="time-label" id="t-days">ڕۆژ</div>
+            <div class="time-label" id="t-days"></div>
         </div>
         <div class="time-box">
             <div id="hours" class="time-number">00</div>
-            <div class="time-label" id="t-hours">کاتژمێر</div>
+            <div class="time-label" id="t-hours"></div>
         </div>
         <div class="time-box">
             <div id="minutes" class="time-number">00</div>
-            <div class="time-label" id="t-mins">خولەک</div>
+            <div class="time-label" id="t-mins"></div>
         </div>
         <div class="time-box">
             <div id="seconds" class="time-number">00</div>
-            <div class="time-label" id="t-secs">چرکە</div>
+            <div class="time-label" id="t-secs"></div>
         </div>
     </div>
 
     <!-- تب‌های دورها -->
     <div class="rounds-tabs">
-        <button class="tab-btn active" id="t-round1-btn" onclick="switchRound(1)">خولی یەکەم</button>
-        <button class="tab-btn" id="t-round2-btn" onclick="switchRound(2)">خولی دووەم</button>
+        <button class="tab-btn active" id="t-round1-btn" onclick="switchRound(1)"></button>
+        <button class="tab-btn" id="t-round2-btn" onclick="switchRound(2)"></button>
     </div>
 
-    <!-- لیستی قورئانخوێنانی خولی یەکەم -->
-    <div id="round1-list" class="reciters-section">
-        <div class="reciter-card">
-            <div class="reciter-number">۱</div>
-            <img src="abdollah.jpg" class="reciter-img" alt="قاری">
-            <div class="reciter-info">
-                <span class="reciter-name">مامۆستا عبدالله بهرامی</span>
-                <span class="reciter-desc">لاپەڕەی ۱ و ۲ و ٣</span>
-            </div>
-        </div>
-        <div class="reciter-card">
-            <div class="reciter-number">۲</div>
-            <img src="yahya.jpg" class="reciter-img" alt="قاری">
-            <div class="reciter-info">
-                <span class="reciter-name">یحیی خیاطیان</span>
-                <span class="reciter-desc">لاپەڕەی ٤ و ٥</span>
-            </div>
-        </div>
-        <div class="reciter-card">
-            <div class="reciter-number">۳</div>
-            <img src="mehdi.jpg" class="reciter-img" alt="قاری">
-            <div class="reciter-info">
-                <span class="reciter-name">مهدی سعیدی</span>
-                <span class="reciter-desc">لاپەڕەی ٦ و ٧</span>
-            </div>
-        </div>
-        <div class="reciter-card">
-            <div class="reciter-number">۴</div>
-            <img src="kamran.jpg" class="reciter-img" alt="قاری">
-            <div class="reciter-info">
-                <span class="reciter-name">سیدکامران حسینی</span>
-                <span class="reciter-desc">لاپەڕەی ٨ و ٩</span>
-            </div>
-        </div>
-        <div class="reciter-card">
-            <div class="reciter-number">۵</div>
-            <img src="soroosh.jpg" class="reciter-img" alt="قاری">
-            <div class="reciter-info">
-                <span class="reciter-name">سروش زارع فر</span>
-                <span class="reciter-desc">لاپەڕەی ١٠ و ۱١</span>
-            </div>
-        </div>
-    </div>
+    <!-- لیستی قورئانخوێنانی خولی یەکەم (توسط جاوااسکریپت پر می‌شود) -->
+    <div id="round1-list" class="reciters-section"></div>
 
-    <!-- لیستی قورئانخوێنانی خولی دووەم -->
-    <div id="round2-list" class="reciters-section hidden">
-        <div class="reciter-card">
-            <div class="reciter-number">۶</div>
-            <img src="rahman.jpg" class="reciter-img" alt="قاری">
-            <div class="reciter-info">
-                <span class="reciter-name">عبدالرحمن صدیقی</span>
-                <span class="reciter-desc">لاپەڕەی ۱٢ و ۱٣</span>
-            </div>
-        </div>
-        <div class="reciter-card">
-            <div class="reciter-number">۷</div>
-            <img src="anvar.jpg" class="reciter-img" alt="قاری">
-            <div class="reciter-info">
-                <span class="reciter-name">انور حیدری</span>
-                <span class="reciter-desc">لاپەڕەی ۱٤ و ۱٥</span>
-            </div>
-        </div>
-        <div class="reciter-card">
-            <div class="reciter-number">۸</div>
-            <img src="soheib.jpg" class="reciter-img" alt="قاری">
-            <div class="reciter-info">
-                <span class="reciter-name">صهیب عبداله زاده</span>
-                <span class="reciter-desc">لاپەڕەی ۱٦ و ۱٧</span>
-            </div>
-        </div>
-        <div class="reciter-card">
-            <div class="reciter-number">۹</div>
-            <img src="mohammadh.jpg" class="reciter-img" alt="قاری">
-            <div class="reciter-info">
-                <span class="reciter-name">محمد حسین زاده</span>
-                <span class="reciter-desc">لاپەڕەی ۱٨ و ١٩</span>
-            </div>
-        </div>
-        <div class="reciter-card">
-            <div class="reciter-number">۱۰</div>
-            <img src="sina.jpg" class="reciter-img" alt="قاری">
-            <div class="reciter-info">
-                <span class="reciter-name">سینا زارع فر</span>
-                <span class="reciter-desc">لاپەڕەی ٢٠ و ۲١</span>
-            </div>
-        </div>
-    </div>
+    <!-- لیستی قورئانخوێنانی خولی دووەم (توسط جاوااسکریپت پر می‌شود) -->
+    <div id="round2-list" class="reciters-section hidden"></div>
 
     <script>
-        const texts = {
+        // =========================================================================
+        // ⚙️ بخش تنظیمات هفتگی (هر هفته فقط مقادیر داخل این بخش را تغییر دهید)
+        // =========================================================================
+        const weeklyConfig = {
+            // ۱. زمان دقیق شروع مراسم برای تایمر (فرمت: سال-ماه-روزTساعت:دقیقه:ثانیه)
+            countdownDate: "2026-10-07T19:30:00",
+
+            // ۲. اطلاعات متنی به زبان کوردی
+            ku: {
+                date: "📅 چوارشەممە ١٥ی ڕەزبەر ۱۴۰۵",
+                time: "⏰ کات: دوای نوێژی عیشا",
+                juz: "جوزئی یەکەم (۱)",
+                mosque: "مزگەوتی حەزرەتی حسین(رض)"
+            },
+
+            // ۳. اطلاعات متنی به زبان فارسی
+            fa: {
+                date: "📅 چهارشنبه ١٥ مهرماه ۱۴۰۵",
+                time: "⏰ زمان: بعد از نماز عشا",
+                juz: "جزء اول (۱)",
+                mosque: "مسجد حضرت حسین(رض)"
+            },
+
+            // ۴. لیست قاریان دور اول (خولی یەکەم)
+            round1Reciters: [
+                { num: "۱", name: "مامۆستا عبدالله بهرامی", pages: "لاپەڕەی ۱ و ۲ و ٣", img: "abdollah.jpg" },
+                { num: "۲", name: "یحیی خیاطیان",          pages: "لاپەڕەی ٤ و ٥",     img: "yahya.jpg" },
+                { num: "۳", name: "مهدی سعیدی",            pages: "لاپەڕەی ٦ و ٧",     img: "mehdi.jpg" },
+                { num: "۴", name: "سیدکامران حسینی",       pages: "لاپەڕەی ٨ و ٩",     img: "kamran.jpg" },
+                { num: "۵", name: "سروش زارع فر",          pages: "لاپەڕەی ١٠ و ۱١",   img: "soroosh.jpg" }
+            ],
+
+            // ۵. لیست قاریان دور دوم (خولی دووەم)
+            round2Reciters: [
+                { num: "۶",  name: "عبدالرحمن صدیقی",  pages: "لاپەڕەی ۱٢ و ۱٣", img: "rahman.jpg" },
+                { num: "۷",  name: "انور حیدری",       pages: "لاپەڕەی ۱٤ و ۱٥", img: "anvar.jpg" },
+                { num: "۸",  name: "صهیب عبداله زاده", pages: "لاپەڕەی ۱٦ و ۱٧", img: "soheib.jpg" },
+                { num: "۹",  name: "محمد حسین زاده",   pages: "لاپەڕەی ۱٨ و ١٩", img: "mohammadh.jpg" },
+                { num: "۱۰", name: "سینا زارع فر",     pages: "لاپەڕەی ٢٠ و ۲١", img: "sina.jpg" }
+            ]
+        };
+        // =========================================================================
+        // پایان بخش تنظیمات هفتگی (به کدهای پایین نیازی نیست دست بزنید)
+        // =========================================================================
+
+        const staticTexts = {
             ku: {
                 langBtn: "🌐 کوردی",
                 eventTitle: "✨ خەتمی هەفتانەی قورئانی پیرۆز ✨",
-                eventDate: "📅 چوارشەممە ١٥ی ڕەزبەر ۱۴۰۵",
-                eventTime: "⏰ کات: دوای نوێژی عیشا",
-                juzBadge: "📖 تیلاوەتی ئەم هەفتەیە: <b>جوزئی یەکەم (۱)</b>",
+                juzPrefix: "📖 تیلاوەتی ئەم هەفتەیە: ",
                 locTitle: "مزگەوتی میوانداری ئەم هەفتەیە:",
-                locName: "مزگەوتی حەزرەتی حسین(رض)",
                 timerTitle: "⏳ کاتی ماوە بۆ دەستپێکی کۆڕ",
                 days: "ڕۆژ",
                 hours: "کاتژمێر",
@@ -429,11 +386,8 @@
             fa: {
                 langBtn: "🌐 فارسی",
                 eventTitle: "✨ ختم هفتگی قرآن کریم ✨",
-                eventDate: "📅 چهارشنبه ١٥ مهرماه ۱۴۰۵",
-                eventTime: "⏰ زمان: بعد از نماز عشا",
-                juzBadge: "📖 تلاوت این هفته: <b>جزء اول (۱)</b>",
+                juzPrefix: "📖 تلاوت این هفته: ",
                 locTitle: "مسجد میزبان این هفته:",
-                locName: "مسجد حضرت حسین(رض)",
                 timerTitle: "⏳ زمان باقی‌مانده تا شروع مراسم",
                 days: "روز",
                 hours: "ساعت",
@@ -447,79 +401,48 @@
 
         let currentLang = 'ku';
 
+        // ساخت خودکار کارت‌های قاریان
+        function renderReciters() {
+            const r1Container = document.getElementById('round1-list');
+            const r2Container = document.getElementById('round2-list');
+
+            r1Container.innerHTML = weeklyConfig.round1Reciters.map(r => `
+                <div class="reciter-card">
+                    <div class="reciter-number">${r.num}</div>
+                    <img src="${r.img}" class="reciter-img" alt="قاری">
+                    <div class="reciter-info">
+                        <span class="reciter-name">${r.name}</span>
+                        <span class="reciter-desc">${r.pages}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            r2Container.innerHTML = weeklyConfig.round2Reciters.map(r => `
+                <div class="reciter-card">
+                    <div class="reciter-number">${r.num}</div>
+                    <img src="${r.img}" class="reciter-img" alt="قاری">
+                    <div class="reciter-info">
+                        <span class="reciter-name">${r.name}</span>
+                        <span class="reciter-desc">${r.pages}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         function toggleLanguage() {
             currentLang = currentLang === 'ku' ? 'fa' : 'ku';
             updatePageLanguage();
         }
 
         function updatePageLanguage() {
-            const t = texts[currentLang];
+            const st = staticTexts[currentLang];
+            const wc = weeklyConfig[currentLang];
+
             document.getElementById('html-root').setAttribute('lang', currentLang);
-            document.getElementById('lang-toggle-btn').innerText = t.langBtn;
-            document.getElementById('t-event-title').innerText = t.eventTitle;
-            document.getElementById('t-event-date').innerText = t.eventDate;
-            document.getElementById('t-event-time').innerText = t.eventTime;
-            document.getElementById('t-juz-badge').innerHTML = t.juzBadge;
-            document.getElementById('t-loc-title').innerText = t.locTitle;
-            document.getElementById('t-loc-name').innerText = t.locName;
-            document.getElementById('t-timer-title').innerText = t.timerTitle;
-            document.getElementById('t-days').innerText = t.days;
-            document.getElementById('t-hours').innerText = t.hours;
-            document.getElementById('t-mins').innerText = t.mins;
-            document.getElementById('t-secs').innerText = t.secs;
-            document.getElementById('t-round1-btn').innerText = t.round1Btn;
-            document.getElementById('t-round2-btn').innerText = t.round2Btn;
-            // دقت کنید: اسامی قاریان دیگر دستکاری نمی‌شوند و ثابت می‌مانند
-        }
-
-        // تایمر
-        const targetDate = new Date("2026-10-07T19:30:00").getTime();
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-
-        function updateTimer() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance < 0) {
-                document.querySelector(".timer-title").innerText = texts[currentLang].timerEnded;
-                document.querySelector(".timer-container").style.display = "none";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = String(days).padStart(2, '0');
-            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
-            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
-        }
-
-        setInterval(updateTimer, 1000);
-        updateTimer();
-
-        // تب‌ها
-        function switchRound(round) {
-            const btn1 = document.getElementById('t-round1-btn');
-            const btn2 = document.getElementById('t-round2-btn');
-            const list1 = document.getElementById('round1-list');
-            const list2 = document.getElementById('round2-list');
-
-            if (round === 1) {
-                btn1.classList.add('active');
-                btn2.classList.remove('active');
-                list1.classList.remove('hidden');
-                list2.classList.add('hidden');
-            } else {
-                btn2.classList.add('active');
-                btn1.classList.remove('active');
-                list2.classList.remove('hidden');
-                list1.classList.add('hidden');
-            }
-        }
-    </script>
-</body>
-</html>
+            document.getElementById('lang-toggle-btn').innerText = st.langBtn;
+            document.getElementById('t-event-title').innerText = st.eventTitle;
+            document.getElementById('t-event-date').innerText = wc.date;
+            document.getElementById('t-event-time').innerText = wc.time;
+            document.getElementById('t-juz-badge').innerHTML = `${st.juzPrefix}<b>${wc.juz}</b>`;
+            document.getElementById('t-loc-title').innerText = st.locTitle;
+            document.getElementById
