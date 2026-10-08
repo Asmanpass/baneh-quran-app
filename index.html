@@ -2,7 +2,7 @@
 <html lang="ku" dir="rtl" id="html-root">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title id="page-title">مراسمی خەتمی قورئانی پیرۆز</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -269,57 +269,57 @@
 
     <!-- سەرپەڕی کۆڕ و کات -->
     <div class="header-card">
-        <div class="event-title" id="t-event-title"></div>
+        <div class="event-title" id="t-event-title">✨ خەتمی هەفتانەی قورئانی پیرۆز ✨</div>
         <div class="event-meta">
-            <span class="event-date" id="t-event-date"></span>
-            <span class="event-time" id="t-event-time"></span>
+            <span class="event-date" id="t-event-date">📅 چوارشەممە ١٥ی ڕەزبەر ۱۴۰۵</span>
+            <span class="event-time" id="t-event-time">⏰ کات: دوای نوێژی عیشا</span>
         </div>
     </div>
 
     <!-- دیاریکردنی جوزئی ئەم هەفتەیە -->
-    <div class="juz-badge" id="t-juz-badge"></div>
+    <div class="juz-badge" id="t-juz-badge">📖 تیلاوەتی ئەم هەفتەیە: <b>جوزئی یەکەم (۱)</b></div>
 
     <!-- شوێن و مزگەوتی میوانداری ئەم هەفتەیە -->
     <div class="location-box">
         <div class="location-icon">🕌</div>
         <div class="location-info">
-            <span class="location-title" id="t-loc-title"></span>
-            <span class="location-name" id="t-loc-name"></span>
+            <span class="location-title" id="t-loc-title">مزگەوتی میوانداری ئەم هەفتەیە:</span>
+            <span class="location-name" id="t-loc-name">مزگەوتی حەزرەتی حسین(رض)</span>
         </div>
     </div>
 
-    <div class="timer-title" id="t-timer-title"></div>
+    <div class="timer-title" id="t-timer-title">⏳ کاتی ماوە بۆ دەستپێکی کۆڕ</div>
     
     <!-- تایمر -->
     <div class="timer-container">
         <div class="time-box">
             <div id="days" class="time-number">00</div>
-            <div class="time-label" id="t-days"></div>
+            <div class="time-label" id="t-days">ڕۆژ</div>
         </div>
         <div class="time-box">
             <div id="hours" class="time-number">00</div>
-            <div class="time-label" id="t-hours"></div>
+            <div class="time-label" id="t-hours">کاتژمێر</div>
         </div>
         <div class="time-box">
             <div id="minutes" class="time-number">00</div>
-            <div class="time-label" id="t-mins"></div>
+            <div class="time-label" id="t-mins">خولەک</div>
         </div>
         <div class="time-box">
             <div id="seconds" class="time-number">00</div>
-            <div class="time-label" id="t-secs"></div>
+            <div class="time-label" id="t-secs">چرکە</div>
         </div>
     </div>
 
     <!-- تب‌های دورها -->
     <div class="rounds-tabs">
-        <button class="tab-btn active" id="t-round1-btn" onclick="switchRound(1)"></button>
-        <button class="tab-btn" id="t-round2-btn" onclick="switchRound(2)"></button>
+        <button class="tab-btn active" id="t-round1-btn" onclick="switchRound(1)">خولی یەکەم</button>
+        <button class="tab-btn" id="t-round2-btn" onclick="switchRound(2)">خولی دووەم</button>
     </div>
 
-    <!-- لیستی قورئانخوێنانی خولی یەکەم (توسط جاوااسکریپت پر می‌شود) -->
+    <!-- لیستی قورئانخوێنانی خولی یەکەم -->
     <div id="round1-list" class="reciters-section"></div>
 
-    <!-- لیستی قورئانخوێنانی خولی دووەم (توسط جاوااسکریپت پر می‌شود) -->
+    <!-- لیستی قورئانخوێنانی خولی دووەم -->
     <div id="round2-list" class="reciters-section hidden"></div>
 
     <script>
@@ -406,27 +406,31 @@
             const r1Container = document.getElementById('round1-list');
             const r2Container = document.getElementById('round2-list');
 
-            r1Container.innerHTML = weeklyConfig.round1Reciters.map(r => `
-                <div class="reciter-card">
-                    <div class="reciter-number">${r.num}</div>
-                    <img src="${r.img}" class="reciter-img" alt="قاری">
-                    <div class="reciter-info">
-                        <span class="reciter-name">${r.name}</span>
-                        <span class="reciter-desc">${r.pages}</span>
+            if (r1Container) {
+                r1Container.innerHTML = weeklyConfig.round1Reciters.map(r => `
+                    <div class="reciter-card">
+                        <div class="reciter-number">${r.num}</div>
+                        <img src="${r.img}" class="reciter-img" alt="قاری">
+                        <div class="reciter-info">
+                            <span class="reciter-name">${r.name}</span>
+                            <span class="reciter-desc">${r.pages}</span>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
 
-            r2Container.innerHTML = weeklyConfig.round2Reciters.map(r => `
-                <div class="reciter-card">
-                    <div class="reciter-number">${r.num}</div>
-                    <img src="${r.img}" class="reciter-img" alt="قاری">
-                    <div class="reciter-info">
-                        <span class="reciter-name">${r.name}</span>
-                        <span class="reciter-desc">${r.pages}</span>
+            if (r2Container) {
+                r2Container.innerHTML = weeklyConfig.round2Reciters.map(r => `
+                    <div class="reciter-card">
+                        <div class="reciter-number">${r.num}</div>
+                        <img src="${r.img}" class="reciter-img" alt="قاری">
+                        <div class="reciter-info">
+                            <span class="reciter-name">${r.name}</span>
+                            <span class="reciter-desc">${r.pages}</span>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
         }
 
         function toggleLanguage() {
@@ -438,11 +442,120 @@
             const st = staticTexts[currentLang];
             const wc = weeklyConfig[currentLang];
 
-            document.getElementById('html-root').setAttribute('lang', currentLang);
-            document.getElementById('lang-toggle-btn').innerText = st.langBtn;
-            document.getElementById('t-event-title').innerText = st.eventTitle;
-            document.getElementById('t-event-date').innerText = wc.date;
-            document.getElementById('t-event-time').innerText = wc.time;
-            document.getElementById('t-juz-badge').innerHTML = `${st.juzPrefix}<b>${wc.juz}</b>`;
-            document.getElementById('t-loc-title').innerText = st.locTitle;
-            document.getElementById
+            const htmlRoot = document.getElementById('html-root');
+            if (htmlRoot) htmlRoot.setAttribute('lang', currentLang);
+            
+            const langBtn = document.getElementById('lang-toggle-btn');
+            if (langBtn) langBtn.innerText = st.langBtn;
+
+            const eventTitle = document.getElementById('t-event-title');
+            if (eventTitle) eventTitle.innerText = st.eventTitle;
+
+            const eventDate = document.getElementById('t-event-date');
+            if (eventDate) eventDate.innerText = wc.date;
+
+            const eventTime = document.getElementById('t-event-time');
+            if (eventTime) eventTime.innerText = wc.time;
+
+            const juzBadge = document.getElementById('t-juz-badge');
+            if (juzBadge) juzBadge.innerHTML = `${st.juzPrefix}<b>${wc.juz}</b>`;
+
+            const locTitle = document.getElementById('t-loc-title');
+            if (locTitle) locTitle.innerText = st.locTitle;
+
+            const locName = document.getElementById('t-loc-name');
+            if (locName) locName.innerText = wc.mosque;
+
+            const daysLbl = document.getElementById('t-days');
+            if (daysLbl) daysLbl.innerText = st.days;
+
+            const hoursLbl = document.getElementById('t-hours');
+            if (hoursLbl) hoursLbl.innerText = st.hours;
+
+            const minsLbl = document.getElementById('t-mins');
+            if (minsLbl) minsLbl.innerText = st.mins;
+
+            const secsLbl = document.getElementById('t-secs');
+            if (secsLbl) secsLbl.innerText = st.secs;
+
+            const r1Btn = document.getElementById('t-round1-btn');
+            if (r1Btn) r1Btn.innerText = st.round1Btn;
+
+            const r2Btn = document.getElementById('t-round2-btn');
+            if (r2Btn) r2Btn.innerText = st.round2Btn;
+
+            updateTimer();
+        }
+
+        // تایمر
+        const targetDate = new Date(weeklyConfig.countdownDate).getTime();
+        
+        // ایمن‌سازی لود تلگرام
+        try {
+            if (window.Telegram && window.Telegram.WebApp) {
+                window.Telegram.WebApp.expand();
+            }
+        } catch (err) {
+            console.log("Telegram WebApp not detected or unable to expand.");
+        }
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            const timerTitle = document.getElementById("t-timer-title");
+            const timerContainer = document.querySelector(".timer-container");
+
+            if (distance < 0) {
+                if (timerTitle) timerTitle.innerText = staticTexts[currentLang].timerEnded;
+                if (timerContainer) timerContainer.style.display = "none";
+                return;
+            } else {
+                if (timerTitle) timerTitle.innerText = staticTexts[currentLang].timerTitle;
+                if (timerContainer) timerContainer.style.display = "flex";
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const daysEl = document.getElementById("days");
+            const hoursEl = document.getElementById("hours");
+            const minutesEl = document.getElementById("minutes");
+            const secondsEl = document.getElementById("seconds");
+
+            if (daysEl) daysEl.innerText = String(days).padStart(2, '0');
+            if (hoursEl) hoursEl.innerText = String(hours).padStart(2, '0');
+            if (minutesEl) minutesEl.innerText = String(minutes).padStart(2, '0');
+            if (secondsEl) secondsEl.innerText = String(seconds).padStart(2, '0');
+        }
+
+        // تب‌ها
+        function switchRound(round) {
+            const btn1 = document.getElementById('t-round1-btn');
+            const btn2 = document.getElementById('t-round2-btn');
+            const list1 = document.getElementById('round1-list');
+            const list2 = document.getElementById('round2-list');
+
+            if (round === 1) {
+                if (btn1) btn1.classList.add('active');
+                if (btn2) btn2.classList.remove('active');
+                if (list1) list1.classList.remove('hidden');
+                if (list2) list2.classList.add('hidden');
+            } else {
+                if (btn2) btn2.classList.add('active');
+                if (btn1) btn1.classList.remove('active');
+                if (list2) list2.classList.remove('hidden');
+                if (list1) list1.classList.add('hidden');
+            }
+        }
+
+        // اجرای اولیه صفحه با اطمینان از لود کامل DOM
+        document.addEventListener("DOMContentLoaded", function() {
+            renderReciters();
+            updatePageLanguage();
+            setInterval(updateTimer, 1000);
+        });
+    </script>
+</body>
+</html>
