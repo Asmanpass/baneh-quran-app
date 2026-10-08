@@ -6,39 +6,270 @@
     <title id="page-title">مراسمی خەتمی قورئانی پیرۆز</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* استایل‌های شما کاملاً دست‌نخورده باقی ماندند تا ظاهر سایت خراب نشود */
-        * { box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--tg-theme-bg-color, #18191a); color: var(--tg-theme-text-color, #ffffff); display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 15px; text-align: center; overflow-x: hidden; }
-        .lang-bar { width: 100%; max-width: 360px; display: flex; justify-content: flex-start; margin-bottom: 8px; }
-        .lang-btn { background: var(--tg-theme-secondary-bg-color, #242526); color: var(--tg-theme-text-color, #ffffff); border: 1px solid rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
-        .lang-btn:active { background: #3390ec; }
-        .header-card { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: #ffffff; width: 100%; max-width: 360px; padding: 16px; border-radius: 16px; box-shadow: 0 6px 15px rgba(0,0,0,0.3); margin-bottom: 12px; }
-        .event-title { font-size: 17px; font-weight: bold; margin-bottom: 6px; }
-        .event-meta { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
-        .event-date, .event-time { font-size: 12px; opacity: 0.95; background: rgba(255, 255, 255, 0.15); padding: 4px 10px; border-radius: 20px; display: inline-block; margin: 0 auto; }
-        .juz-badge { background: linear-gradient(135deg, #134e4a 0%, #065f46 100%); border: 1px solid #34d399; color: #ecfdf5; width: 100%; max-width: 360px; padding: 12px 16px; border-radius: 14px; font-size: 14px; font-weight: bold; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(6, 95, 70, 0.35); display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .location-box { display: flex; align-items: center; background: var(--tg-theme-secondary-bg-color, #242526); border: 1px solid rgba(212, 175, 55, 0.3); width: 100%; max-width: 360px; padding: 10px 14px; border-radius: 12px; margin-bottom: 18px; text-align: right; box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
-        .location-icon { font-size: 22px; margin-left: 12px; flex-shrink: 0; }
-        .location-info { display: flex; flex-direction: column; }
-        .location-title { font-size: 11px; color: #d4af37; font-weight: bold; margin-bottom: 2px; }
-        .location-name { font-size: 13px; font-weight: bold; }
-        .timer-title { font-size: 13px; color: var(--tg-theme-hint-color, #b0b3b8); margin-bottom: 8px; font-weight: bold; }
-        .timer-container { display: flex; gap: 8px; justify-content: center; align-items: center; width: 100%; max-width: 360px; margin-bottom: 20px; direction: ltr; }
-        .time-box { background: var(--tg-theme-secondary-bg-color, #242526); padding: 10px 6px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex: 1; min-width: 0; border-bottom: 3px solid #3390ec; }
-        .time-number { font-size: 20px; font-weight: bold; color: var(--tg-theme-button-color, #3390ec); }
-        .time-label { font-size: 10px; margin-top: 4px; color: var(--tg-theme-hint-color, #8a8d91); }
-        .rounds-tabs { display: flex; gap: 10px; width: 100%; max-width: 360px; margin-bottom: 15px; }
-        .tab-btn { flex: 1; padding: 10px; background: var(--tg-theme-secondary-bg-color, #242526); color: var(--tg-theme-text-color, #ffffff); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .tab-btn.active { background: #3390ec; color: #ffffff; border-color: #3390ec; box-shadow: 0 3px 8px rgba(51, 144, 236, 0.4); }
-        .reciters-section { width: 100%; max-width: 360px; margin-bottom: 20px; }
-        .reciter-card { display: flex; align-items: center; background: var(--tg-theme-secondary-bg-color, #242526); padding: 10px 14px; border-radius: 12px; margin-bottom: 9px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); text-align: right; border-right: 4px solid #3390ec; }
-        .reciter-number { font-size: 12px; font-weight: bold; background: rgba(51, 144, 236, 0.15); color: #3390ec; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 12px; flex-shrink: 0; }
-        .reciter-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; margin-left: 12px; border: 2px solid #3390ec; flex-shrink: 0; }
-        .reciter-info { display: flex; flex-direction: column; overflow: hidden; }
-        .reciter-name { font-size: 14px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .reciter-desc { font-size: 11px; color: var(--tg-theme-hint-color, #a0a3a7); margin-top: 2px; }
-        .hidden { display: none; }
-        .loading { font-size: 16px; color: #f3d078; font-weight: bold; padding: 20px; }
+        @import url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--tg-theme-bg-color, #18191a);
+            color: var(--tg-theme-text-color, #ffffff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        #main-content {
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lang-bar {
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 8px;
+        }
+        .lang-btn {
+            background: var(--tg-theme-secondary-bg-color, #242526);
+            color: var(--tg-theme-text-color, #ffffff);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .lang-btn:active {
+            background: #3390ec;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            width: 100%;
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            margin-bottom: 12px;
+        }
+        .event-title {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .event-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 6px;
+        }
+        .event-date, .event-time {
+            font-size: 12px;
+            opacity: 0.95;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        .juz-badge {
+            background: linear-gradient(135deg, #134e4a 0%, #065f46 100%);
+            border: 1px solid #34d399;
+            color: #ecfdf5;
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(6, 95, 70, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .location-box {
+            display: flex;
+            align-items: center;
+            background: var(--tg-theme-secondary-bg-color, #242526);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            text-align: right;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+        .location-icon {
+            font-size: 22px;
+            margin-left: 12px;
+            flex-shrink: 0;
+        }
+        .location-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .location-title {
+            font-size: 11px;
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        .location-name {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .timer-title {
+            font-size: 13px;
+            color: var(--tg-theme-hint-color, #b0b3b8);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .timer-container {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+            direction: ltr;
+        }
+        .time-box {
+            background: var(--tg-theme-secondary-bg-color, #242526);
+            padding: 10px 6px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            flex: 1;
+            min-width: 0;
+            border-bottom: 3px solid #3390ec;
+        }
+        .time-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--tg-theme-button-color, #3390ec);
+        }
+        .time-label {
+            font-size: 10px;
+            margin-top: 4px;
+            color: var(--tg-theme-hint-color, #8a8d91);
+        }
+
+        .rounds-tabs {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: var(--tg-theme-secondary-bg-color, #242526);
+            color: var(--tg-theme-text-color, #ffffff);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #3390ec;
+            color: #ffffff;
+            border-color: #3390ec;
+            box-shadow: 0 3px 8px rgba(51, 144, 236, 0.4);
+        }
+
+        .reciters-section {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .reciter-card {
+            display: flex;
+            align-items: center;
+            background: var(--tg-theme-secondary-bg-color, #242526);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-bottom: 9px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            text-align: right;
+            border-right: 4px solid #3390ec;
+        }
+        .reciter-number {
+            font-size: 12px;
+            font-weight: bold;
+            background: rgba(51, 144, 236, 0.15);
+            color: #3390ec;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 12px;
+            flex-shrink: 0;
+        }
+        .reciter-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 12px;
+            border: 2px solid #3390ec;
+            flex-shrink: 0;
+        }
+        .reciter-info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .reciter-name {
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .reciter-desc {
+            font-size: 11px;
+            color: var(--tg-theme-hint-color, #a0a3a7);
+            margin-top: 2px;
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* استایل زیبای بسم الله برای لحظه بارگذاری اولیه */
+        .bismillah-loader {
+            font-family: 'Scheherazade New', serif;
+            font-size: 28px;
+            color: #f3d078;
+            font-weight: bold;
+            margin-top: 35vh;
+            text-shadow: 0 2px 10px rgba(243, 208, 120, 0.3);
+            animation: pulse 1.8s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
     </style>
 </head>
 <body>
@@ -47,7 +278,8 @@
         <button class="lang-btn" id="lang-toggle-btn" onclick="toggleLanguage()">🌐 کوردی</button>
     </div>
 
-    <div id="loading-screen" class="loading">خەریکە زانیارییەکان لە سێرڤەر وەردەگرێت...⏳</div>
+    <!-- نمایش بسم الله به جای متن لودینگ سرور -->
+    <div id="loading-screen" class="bismillah-loader">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
 
     <div id="main-content" class="hidden">
         <div class="header-card">
@@ -88,12 +320,12 @@
 
     <script>
         // =====================================================================
-        // لینک Web App گوگل اسکریپت را اینجا قرار دهید:
+        // ۱. لینک Web App گوگل اسکریپت خود را اینجا قرار دهید:
         const GOOGLE_API_URL = "https://script.google.com/macros/s/AKfycbzgaZ2s-Nb913hL1b8do0vYrPQI1eiPX0Rft0cChtXjCnc_N9lzWpPY-wu0tA0AqzHNgQ/exec";
         
-        // دیتابیس کامل yearTimes را اینجا بگذارید (من فقط یک ماه را برای نمونه گذاشتم، شما کلش را کپی کنید)
+        // ۲. دیتابیس کامل yearTimes (۳۶۶ روز) را اینجا قرار دهید:
         const yearTimes = {
-"1": { // نەورۆز - خاکەلێوە (فروردین)
+            "1": { // نەورۆز - خاکەلێوە (فروردین)
                 "1": ["05:04", "06:35", "12:41", "03:47", "06:45", "07:55"], "2": ["05:03", "06:33", "12:41", "03:48", "06:45", "07:56"],
                 "3": ["05:02", "06:31", "12:41", "03:48", "06:46", "07:56"], "4": ["05:01", "06:30", "12:41", "03:48", "06:46", "07:57"],
                 "5": ["05:00", "06:28", "12:40", "03:48", "06:48", "07:58"], "6": ["04:59", "06:26", "12:40", "03:49", "06:48", "07:59"],
@@ -302,17 +534,27 @@
                 "25": ["05:12", "06:44", "12:40", "03:46", "06:40", "07:52"], "26": ["05:10", "06:42", "12:40", "03:46", "06:41", "07:53"],
                 "27": ["05:08", "06:41", "12:40", "03:46", "06:42", "07:53"], "28": ["05:07", "06:39", "12:40", "03:47", "06:43", "07:54"],
                 "29": ["05:06", "06:38", "12:41", "03:47", "06:44", "07:54"], "30": ["05:05", "06:37", "12:41", "03:47", "06:45", "07:55"]
-            }        };
+            }
+        };
+        // =====================================================================
+
+        function toPersianNum(str) {
+            if (str === null || str === undefined) return '';
+            const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return String(str).replace(/\d/g, x => persianDigits[x]);
+        }
 
         const kurdishMonths = {"1": "خاکەلێوە", "2": "بانەمەڕ", "3": "جۆزەردان", "4": "پووشپەڕ", "5": "خەرمانان", "6": "گەلاوێژ", "7": "ڕەزبەر", "8": "خەزەڵوەر", "9": "سەرماوەز", "10": "بەفرانبار", "11": "ڕێبەندان", "12": "ڕەشەمە"};
-        const persianMonths = {"1": "فروردین", "2": "اردیبهشت", "3": "خرداد", "4": "تیر", "5": "مرداد", "6": "شهریور", "7": "مهر", "8": "آبان", "9": "آذر", "10": "دی", "11": "بهمن", "12": "اسفند"};
-        const kurdishOrdinals = ['یەکەم', 'دووەم', 'سێیەم', 'چوارەم', 'پێنجەم', 'شەشەم', 'حەوتەم', 'هەشتەم', 'نۆیەم', 'دەیەم', 'یانزەیەم', 'دوانزەیەم', 'سیانزەیەم', 'چواردەیەم', 'پازدەیەم', 'شازدەیەم', 'حەڤدەیەم', 'هەژدەیەم', 'نۆزدەیەم', 'بیستەم', 'بیست و یەکەم', 'بیست و دووەم', 'بیست و سێیەم', 'بیست و چوارەم', 'بیست و پێنجەم', 'بیست و شەشەم', 'بیست و حەوتەم', 'بیست و هەشتەم', 'بیست و نۆیەم', 'سییەم'];
+        const persianMonths = {"1": "فروردین", "2": "اردیبهشت", "3": "خرداد", "4": "تیر", "5": "مرداد", "6": "شهریور", "7": "مهرماه", "8": "آبان‌ماه", "9": "آذرماه", "10": "دی‌ماه", "11": "بهمن‌ماه", "12": "اسفندماه"};
+        
+        const kurdishOrdinals = ['یەکەم', 'دووهەم', 'سێیەم', 'چوارەم', 'پێنجەم', 'شەشەم', 'حەوتەم', 'هەشتەم', 'نۆیەم', 'دەیەم', 'یانزەیەم', 'دوانزەیەم', 'سیانزەیەم', 'چواردەیەم', 'پازدەیەم', 'شازدەیەم', 'حەڤدەیەم', 'هەژدەیەم', 'نۆزدەیەم', 'بیستەم', 'بیست و یەکەم', 'بیست و دووهەم', 'بیست و سێیەم', 'بیست و چوارەم', 'بیست و پێنجەم', 'بیست و شەشەم', 'بیست و حەوتەم', 'بیست و هەشتەم', 'بیست و نۆیەم', 'سییەم'];
+        const persianOrdinals = ['اول', 'دوم', 'سوم', 'چهارم', 'پنجم', 'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم', 'یازدهم', 'دوازدهم', 'سیزدهم', 'چهاردهم', 'پانزدهم', 'شانزدهم', 'هفدهم', 'هجدهم', 'نوزدهم', 'بیستم', 'بیست و یکم', 'بیست و دوم', 'بیست و سوم', 'بیست و چهارم', 'بیست و پنجم', 'بیست و ششم', 'بیست و هفتم', 'بیست و هشتم', 'بیست و نهم', 'سی‌ام'];
 
         let currentLang = 'ku';
         let targetDateTimer = 0;
-        let eventData = {}; // دیتای ذخیره شده از گوگل
+        let eventData = {};
+        let timerInterval = null;
 
-        // ۱. محاسبه چهارشنبه بعدی و پیدا کردن ساعت اذان
         function calculateNextWednesdayInfo() {
             let now = new Date();
             let target = new Date();
@@ -325,78 +567,93 @@
             let m = parts.find(p=>p.type==='month').value;
             let d = parts.find(p=>p.type==='day').value;
 
-            // خواندن اذان عشا از دیتابیس (عشا = ایندکس ۵)
-            let isha = (yearTimes[m] && yearTimes[m][d]) ? yearTimes[m][d][5] : "19:00"; 
+            let isha = (yearTimes[m] && yearTimes[m][d]) ? yearTimes[m][d][5] : "19:30"; 
             let [h, min] = isha.split(':');
-            target.setHours(parseInt(h) + 2, parseInt(min), 0, 0);
+            let ishaHour24 = parseInt(h, 10);
+            if (ishaHour24 < 12) ishaHour24 += 12;
+            target.setHours(ishaHour24 + 2, parseInt(min, 10), 0, 0);
 
-            // اگر چهارشنبه است ولی از اذان عشا+۲ گذشته، برو هفته بعد
             if (now.getTime() > target.getTime()) {
                 target.setDate(target.getDate() + 7);
                 parts = formatter.formatToParts(target);
                 y = parts.find(p=>p.type==='year').value;
                 m = parts.find(p=>p.type==='month').value;
                 d = parts.find(p=>p.type==='day').value;
-                isha = (yearTimes[m] && yearTimes[m][d]) ? yearTimes[m][d][5] : "19:00";
+                isha = (yearTimes[m] && yearTimes[m][d]) ? yearTimes[m][d][5] : "19:30";
                 let [nh, nmin] = isha.split(':');
-                target.setHours(parseInt(nh) + 2, parseInt(nmin), 0, 0);
+                let nIshaHour24 = parseInt(nh, 10);
+                if (nIshaHour24 < 12) nIshaHour24 += 12;
+                target.setHours(nIshaHour24 + 2, parseInt(nmin, 10), 0, 0);
             }
 
             return { targetObj: target, year: y, month: m, day: d };
         }
 
-        // ۲. محاسبه صفحات هوشمند بر اساس جزء
         function getPagesText(juz, index, lang) {
             if (juz === 1) {
-                if (index === 0) return lang === 'ku' ? "لاپەڕەی ۱ تا ۳" : "صفحه ۱ تا ۳";
+                if (index === 0) return toPersianNum(lang === 'ku' ? "لاپەڕەی ۱ تا ۳" : "صفحه ۱ تا ۳");
                 let start = 4 + (index - 1) * 2;
-                return lang === 'ku' ? `لاپەڕەی ${start} و ${start + 1}` : `صفحه ${start} و ${start + 1}`;
+                return toPersianNum(lang === 'ku' ? `لاپەڕەی ${start} و ${start + 1}` : `صفحه ${start} و ${start + 1}`);
             } else {
                 let startPage = (juz - 1) * 20 + 2;
                 let rStart = startPage + (index * 2);
                 if (juz === 30 && index === 9) {
-                    return lang === 'ku' ? "لە لاپەڕەی ۶۰۱ الی آخر (پایانی قورئان)" : "از صفحه ۶۰۱ الی آخر (پایان قرآن)";
+                    return toPersianNum(lang === 'ku' ? "لە لاپەڕەی ۶۰۱ الی آخر" : "از صفحه ۶۰۱ الی آخر");
                 }
-                return lang === 'ku' ? `لاپەڕەی ${rStart} و ${rStart + 1}` : `صفحه ${rStart} و ${rStart + 1}`;
+                return toPersianNum(lang === 'ku' ? `لاپەڕەی ${rStart} و ${rStart + 1}` : `صفحه ${rStart} و ${rStart + 1}`);
             }
         }
 
-        // ۳. دریافت دیتای اکسل
+        function applyDataToUI(data) {
+            let startD = new Date(data.startDate);
+            let now = new Date();
+            let diffWeeks = Math.floor(Math.abs(now - startD) / (1000 * 60 * 60 * 24 * 7));
+            let calculatedJuz = (diffWeeks % 30) + 1;
+            let finalJuz = data.manualJuz ? data.manualJuz : calculatedJuz;
+
+            let wedInfo = calculateNextWednesdayInfo();
+            targetDateTimer = wedInfo.targetObj.getTime();
+
+            eventData = {
+                mosque: data.mosque,
+                juzNum: finalJuz,
+                dateKu: toPersianNum(`📅 چوارشەممە ${wedInfo.day}ی ${kurdishMonths[wedInfo.month]} ${wedInfo.year}`),
+                dateFa: toPersianNum(`📅 چهارشنبه ${wedInfo.day} ${persianMonths[wedInfo.month]} ${wedInfo.year}`),
+                reciters: data.reciters
+            };
+
+            document.getElementById("loading-screen").classList.add("hidden");
+            document.getElementById("main-content").classList.remove("hidden");
+            
+            updatePageLanguage();
+            if (!timerInterval) {
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        }
+
         async function fetchGoogleData() {
+            // ۱. بارگذاری فوری از حافظه کش گوشی (صفر ثانیه تاخیر)
+            const cachedData = localStorage.getItem('quran_baneh_cache');
+            if (cachedData) {
+                try {
+                    applyDataToUI(JSON.parse(cachedData));
+                } catch (e) {}
+            }
+
+            // ۲. دریافت آخرین تغییرات از گوگل شیت در پس‌زمینه
             try {
                 let response = await fetch(GOOGLE_API_URL);
-                let data = await response.json();
-                
-                // محاسبه خودکار جزء
-                let startD = new Date(data.startDate);
-                let now = new Date();
-                let diffWeeks = Math.floor(Math.abs(now - startD) / (1000 * 60 * 60 * 24 * 7));
-                let calculatedJuz = (diffWeeks % 30) + 1;
-                let finalJuz = data.manualJuz ? data.manualJuz : calculatedJuz;
-
-                let wedInfo = calculateNextWednesdayInfo();
-                targetDateTimer = wedInfo.targetObj.getTime();
-
-                eventData = {
-                    mosque: data.mosque,
-                    juzNum: finalJuz,
-                    dateKu: `📅 چوارشەممە ${wedInfo.day}ی ${kurdishMonths[wedInfo.month]} ${wedInfo.year}`,
-                    dateFa: `📅 چهارشنبه ${wedInfo.day} ${persianMonths[wedInfo.month]} ${wedInfo.year}`,
-                    reciters: data.reciters
-                };
-
-                document.getElementById("loading-screen").classList.add("hidden");
-                document.getElementById("main-content").classList.remove("hidden");
-                
-                updatePageLanguage(); // ساخت ظاهر سایت
-                setInterval(updateTimer, 1000);
+                let freshData = await response.json();
+                localStorage.setItem('quran_baneh_cache', JSON.stringify(freshData));
+                applyDataToUI(freshData);
             } catch (error) {
-                document.getElementById("loading-screen").innerText = "کێشەیەک لە وەرگرتنی زانیارییەکان هەیە!";
+                if (!cachedData) {
+                    document.getElementById("loading-screen").innerText = "کێشەیەک لە هێڵی ئینتەرنێت هەیە!";
+                }
                 console.error(error);
             }
         }
 
-        // ساخت رابط کاربری
         function updatePageLanguage() {
             if (!eventData.mosque) return;
 
@@ -405,10 +662,13 @@
             document.getElementById('t-event-date').innerText = currentLang === 'ku' ? eventData.dateKu : eventData.dateFa;
             document.getElementById('t-event-time').innerText = currentLang === 'ku' ? "⏰ کات: دوای نوێژی عیشا" : "⏰ زمان: بعد از نماز عشا";
             
-            let juzWordKu = kurdishOrdinals[eventData.juzNum - 1] || eventData.juzNum;
+            let juzWordKu = kurdishOrdinals[eventData.juzNum - 1] || toPersianNum(eventData.juzNum);
+            let juzWordFa = persianOrdinals[eventData.juzNum - 1] || toPersianNum(eventData.juzNum);
+            let persianJuzNum = toPersianNum(eventData.juzNum);
+
             document.getElementById('t-juz-badge').innerHTML = currentLang === 'ku' 
-                ? `📖 تیلاوەتی ئەم هەفتەیە: <b>جوزئی ${juzWordKu} (${eventData.juzNum})</b>`
-                : `📖 تلاوت این هفته: <b>جزء ${eventData.juzNum}</b>`;
+                ? `📖 تیلاوەتی ئەم هەفتەیە: <b>جوزئی ${juzWordKu} (${persianJuzNum})</b>`
+                : `📖 تلاوت این هفته: <b>جزء ${juzWordFa} (${persianJuzNum})</b>`;
 
             document.getElementById('t-loc-title').innerText = currentLang === 'ku' ? "مزگەوتی میوانداری ئەم هەفتەیە:" : "مسجد میزبان این هفته:";
             document.getElementById('t-loc-name').innerText = eventData.mosque;
@@ -420,14 +680,14 @@
             document.getElementById('t-round1-btn').innerText = currentLang === 'ku' ? "خولی یەکەم" : "دور اول";
             document.getElementById('t-round2-btn').innerText = currentLang === 'ku' ? "خولی دووەم" : "دور دوم";
 
-            // تولید خودکار کارت قاریان
             let r1Html = "", r2Html = "";
             eventData.reciters.forEach((r, index) => {
                 let pages = getPagesText(eventData.juzNum, index, currentLang);
+                let reciterNum = toPersianNum(index + 1);
                 let card = `
                     <div class="reciter-card">
-                        <div class="reciter-number">${index + 1}</div>
-                        <img src="${r.photo}" class="reciter-img" alt="قاری">
+                        <div class="reciter-number">${reciterNum}</div>
+                        <img src="${r.photo}" class="reciter-img" alt="قاری" onerror="this.src='default.jpg'">
                         <div class="reciter-info">
                             <span class="reciter-name">${r.name}</span>
                             <span class="reciter-desc">${pages}</span>
